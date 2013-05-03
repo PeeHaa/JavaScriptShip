@@ -1,11 +1,10 @@
-function Map(canvasContext) {
-    this.canvasContext = canvasContext;
+function Map(canvasElement, canvasContext) {
     this.sector = 1;
     this.jumps = [];
 
     this.settings = {
-        width: 800,
-        height: 600,
+        width: canvasElement.width,
+        height: canvasElement.height,
         minJumps: 15,
         maxJumps: 20
     };
@@ -27,19 +26,19 @@ function Map(canvasContext) {
     };
 
     this.addBackground = function() {
-        var linearGradient = this.canvasContext.createLinearGradient(0,0,0,150);
+        var linearGradient = canvasContext.createLinearGradient(0,0,0,150);
 
         linearGradient.addColorStop(0, '#203060');
         linearGradient.addColorStop(1, '#0F153C');
 
-        this.canvasContext.fillStyle = linearGradient;
-        this.canvasContext.fillRect(0, 0, this.settings.width, this.settings.height);
+        canvasContext.fillStyle = linearGradient;
+        canvasContext.fillRect(0, 0, this.settings.width, this.settings.height);
     };
 
     this.addHeader = function(sector) {
-        this.canvasContext.fillStyle = '#ffffff';
-        this.canvasContext.font = 'bold 16px Verdana';
-        this.canvasContext.fillText('Sector ' + this.sector, 10, 25);
+        canvasContext.fillStyle = '#ffffff';
+        canvasContext.font = 'bold 16px Verdana';
+        canvasContext.fillText('Sector ' + this.sector, 10, 25);
     };
 
     this.generateJumps = function() {
@@ -84,13 +83,13 @@ function Map(canvasContext) {
     };
 
     this.addJump = function(jump) {
-        this.canvasContext.beginPath();
-        this.canvasContext.arc(jump.info.x, jump.info.y, 5, 0, 2 * Math.PI, false);
-        this.canvasContext.fillStyle = '#ffffff';
-        this.canvasContext.fill();
-        this.canvasContext.lineWidth = 2;
-        this.canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
-        this.canvasContext.stroke();
+        canvasContext.beginPath();
+        canvasContext.arc(jump.info.x, jump.info.y, 5, 0, 2 * Math.PI, false);
+        canvasContext.fillStyle = '#ffffff';
+        canvasContext.fill();
+        canvasContext.lineWidth = 2;
+        canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
+        canvasContext.stroke();
     };
 }
 

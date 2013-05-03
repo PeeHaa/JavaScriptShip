@@ -1,6 +1,6 @@
 function GameEngine(playfield) {
-    this.playfield = playfield;
-    this.canvasContext = playfield.getContext('2d');
+    var canvasContext = playfield.getContext('2d');
+
     this.map = {};
 
     this.currentGame = {
@@ -8,6 +8,6 @@ function GameEngine(playfield) {
     };
 
     this.newGame = function() {
-        this.map = new Map(this.canvasContext).generate(this.currentGame.sector);
+        this.map = new Map(playfield, canvasContext).generate(this.currentGame.sector);
     };
 }
