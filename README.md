@@ -8,6 +8,15 @@ Status
 
 I'm currently just playing with creating the map part. The goal it to have a working clone at some point.
 
+The map displays:
+
+- connected nodes
+- exit node (spinning node)
+- visited nodes (gray border)
+- player (black fill)
+
+You can jump to nodes in range.
+
 To check out the progress of the project see the [live demo][demo].
 
 Simple usage
