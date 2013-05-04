@@ -5,8 +5,8 @@ function Map(canvasElement, canvasContext) {
     this.settings = {
         width: canvasElement.width,
         height: canvasElement.height,
-        minJumps: 15,
-        maxJumps: 20
+        minJumps: 20,
+        maxJumps: 30
     };
 
     this.generate = function(sector) {
@@ -52,10 +52,10 @@ function Map(canvasElement, canvasContext) {
     };
 
     this.addRandomJump = function() {
-        do {
+        //do {
             var x = ExtendedMath.rand(Map.MINIMUM_DISTANCE_TO_BORDERS, (this.settings.width - Map.MINIMUM_DISTANCE_TO_BORDERS)),
                 y = ExtendedMath.rand(Map.MINIMUM_DISTANCE_TO_BORDERS, (this.settings.height - Map.MINIMUM_DISTANCE_TO_BORDERS));
-        } while (!this.isValidJump(x, y));
+        //} while (!this.isValidJump(x, y));
 
         this.jumps.push(new Jump(x, y));
     };
@@ -93,5 +93,5 @@ function Map(canvasElement, canvasContext) {
     };
 }
 
-Map.MINIMUM_DISTANCE_BETWEEN_JUMPS = 20;
+Map.MINIMUM_DISTANCE_BETWEEN_JUMPS = 30;
 Map.MINIMUM_DISTANCE_TO_BORDERS = 15;
