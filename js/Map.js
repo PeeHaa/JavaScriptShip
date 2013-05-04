@@ -79,11 +79,11 @@ function Map(canvasElement, canvasContext) {
 
     this.addJumps = function() {
         this.jumps.forEach(function(jump) {
-            this.addJump(jump);
-
             if (jump.info.isActive) {
                 this.showPaths(jump);
             }
+
+            this.addJump(jump);
         }.bind(this));
     };
 
