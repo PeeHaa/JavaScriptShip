@@ -17,7 +17,7 @@ The map displays:
 
 You can jump to nodes in range.
 
-To check out the progress of the project see the [live demo][demo].
+To check out the progress of the project see the [live demo][demo] (auto play sound warning).
 
 Simple usage
 -
