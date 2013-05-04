@@ -1,6 +1,5 @@
 function Map(canvasElement, canvasContext) {
     this.sector = 1;
-    this.position = null;
     this.jumps = [];
 
     this.settings = {
@@ -15,6 +14,8 @@ function Map(canvasElement, canvasContext) {
 
         this.generateJumps();
 
+        this.setStartingPosition();
+
         this.draw();
 
         return this;
@@ -25,6 +26,38 @@ function Map(canvasElement, canvasContext) {
         this.addHeader();
         this.addPaths();
         this.addJumps();
+    };
+
+    this.setStartingPosition = function() {
+        var mostLeftJump = null,
+            mostLeftJumpsInRange = [];
+
+        for (var i = 0, l = this.jumps.length; i < l; i++) {
+            var jump = this.jumps[i];
+
+            if (mostLeftJump === null || jump.info.x < mostLeftJump.info.x) {
+                mostLeftJump = jump;
+            }
+
+            if (jump.info.x <= Map.STARTING_POINT_RANGE) {
+                mostLeftJumpsInRange.push(jump);
+            }
+
+            if (mostLeftJumpsInRange.length === 3) {
+                break;
+            }
+        }
+
+        if (mostLeftJumpsInRange.length > 0) {
+            var startingJump = mostLeftJumpsInRange[ExtendedMath.rand(0, (mostLeftJumpsInRange.length - 1))];
+        } else {
+            var startingJump = mostLeftJump;
+        }
+
+        startingJump.info.environment = [];
+        startingJump.info.events = [];
+        startingJump.info.ships = [];
+        startingJump.info.hasPlayer = true;
     };
 
     this.addBackground = function() {
@@ -137,3 +170,4 @@ function Map(canvasElement, canvasContext) {
 
 Map.MINIMUM_DISTANCE_BETWEEN_JUMPS = 30;
 Map.MINIMUM_DISTANCE_TO_BORDERS = 15;
+Map.STARTING_POINT_RANGE = 100;
