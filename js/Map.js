@@ -79,7 +79,7 @@ function Map(canvasElement, canvasContext) {
                 mostRightJump = jump;
             }
 
-            if (jump.info.x >= Map.EXIT_POINT_RANGE) {
+            if (jump.info.x >= (this.settings.width - Map.EXIT_POINT_RANGE)) {
                 mostRightJumpsInRange.push(jump);
             }
 
