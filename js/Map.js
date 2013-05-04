@@ -3,6 +3,9 @@ function Map(canvasElement, canvasContext) {
     this.position = null;
     this.jumps = [];
 
+    // used to move the border of the exit jump
+    this.exitJumpDrawOffset = 0;
+
     this.settings = {
         width: canvasElement.width,
         height: canvasElement.height,
@@ -16,8 +19,10 @@ function Map(canvasElement, canvasContext) {
         this.generateJumps();
 
         this.setStartingPosition();
+        this.setExitPosition();
 
         this.draw();
+        this.exitSpinner();
 
         return this;
     };
@@ -63,6 +68,35 @@ function Map(canvasElement, canvasContext) {
         this.position = startingJump;
     };
 
+    this.setExitPosition = function() {
+        var mostRightJump = null,
+            mostRightJumpsInRange = [];
+
+        for (var i = 0, l = this.jumps.length; i < l; i++) {
+            var jump = this.jumps[i];
+
+            if (mostRightJump === null || jump.info.x > mostRightJump.info.x) {
+                mostRightJump = jump;
+            }
+
+            if (jump.info.x >= Map.EXIT_POINT_RANGE) {
+                mostRightJumpsInRange.push(jump);
+            }
+
+            if (mostRightJumpsInRange.length === 3) {
+                break;
+            }
+        }
+
+        if (mostRightJumpsInRange.length > 0) {
+            var exitJump = mostRightJumpsInRange[ExtendedMath.rand(0, (mostRightJumpsInRange.length - 1))];
+        } else {
+            var exitJump = mostRightJump;
+        }
+
+        exitJump.info.isExit = true;
+    };
+
     this.addBackground = function() {
         var linearGradient = canvasContext.createLinearGradient(0,0,0,150);
 
@@ -85,8 +119,6 @@ function Map(canvasElement, canvasContext) {
         for (var i = 0; i < max; i++) {
             this.addRandomJump();
         }
-
-        this.addJumps();
     };
 
     this.addRandomJump = function() {
@@ -137,7 +169,12 @@ function Map(canvasElement, canvasContext) {
         canvasContext.lineWidth = 2;
         canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
         canvasContext.strokeStyle = jump.info.visited ? '#3e3e3e' : canvasContext.strokeStyle;
+        if (jump.info.isExit) {
+            canvasContext.setLineDash([3, 2]);
+            canvasContext.lineDashOffset = this.exitJumpDrawOffset;
+        }
         canvasContext.stroke();
+        canvasContext.setLineDash([]);
     };
 
     this.showPositionInfo = function(e) {
@@ -202,8 +239,17 @@ function Map(canvasElement, canvasContext) {
 
         this.draw();
     };
+
+    this.exitSpinner = function() {
+        setTimeout(function() {
+            this.exitJumpDrawOffset++;
+            this.draw();
+            this.exitSpinner();
+        }.bind(this), 50);
+    };
 }
 
 Map.MINIMUM_DISTANCE_BETWEEN_JUMPS = 30;
 Map.MINIMUM_DISTANCE_TO_BORDERS = 15;
 Map.STARTING_POINT_RANGE = 100;
+Map.EXIT_POINT_RANGE = 100;
