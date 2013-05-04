@@ -23,6 +23,7 @@ function Map(canvasElement, canvasContext) {
     this.draw = function() {
         this.addBackground();
         this.addHeader();
+        this.addPaths();
         this.addJumps();
     };
 
@@ -77,12 +78,16 @@ function Map(canvasElement, canvasContext) {
         return true;
     };
 
-    this.addJumps = function() {
+    this.addPaths = function() {
         this.jumps.forEach(function(jump) {
             if (jump.info.isActive) {
                 this.showPaths(jump);
             }
+        }.bind(this));
+    };
 
+    this.addJumps = function() {
+        this.jumps.forEach(function(jump) {
             this.addJump(jump);
         }.bind(this));
     };
@@ -94,6 +99,7 @@ function Map(canvasElement, canvasContext) {
         canvasContext.fill();
         canvasContext.lineWidth = 2;
         canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
+        canvasContext.strokeStyle = jump.info.hasPlayer ? '#ffd1e4' : '#00d1e4';
         canvasContext.stroke();
     };
 
