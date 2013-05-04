@@ -131,10 +131,12 @@ function Map(canvasElement, canvasContext) {
     this.addJump = function(jump) {
         canvasContext.beginPath();
         canvasContext.arc(jump.info.x, jump.info.y, 5, 0, 2 * Math.PI, false);
-        canvasContext.fillStyle = jump.info.hasPlayer ? '#000000' : '#ffffff';
+        canvasContext.fillStyle = jump.info.visited ? '#e3e3e3' : '#ffffff';
+        canvasContext.fillStyle = jump.info.hasPlayer ? '#000000' : canvasContext.fillStyle;
         canvasContext.fill();
         canvasContext.lineWidth = 2;
         canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
+        canvasContext.strokeStyle = jump.info.visited ? '#3e3e3e' : canvasContext.strokeStyle;
         canvasContext.stroke();
     };
 
