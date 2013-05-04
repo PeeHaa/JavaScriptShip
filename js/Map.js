@@ -1,5 +1,6 @@
 function Map(canvasElement, canvasContext) {
     this.sector = 1;
+    this.position = null;
     this.jumps = [];
 
     this.settings = {
@@ -79,6 +80,10 @@ function Map(canvasElement, canvasContext) {
     this.addJumps = function() {
         this.jumps.forEach(function(jump) {
             this.addJump(jump);
+
+            if (jump.info.isActive) {
+                this.showPaths(jump);
+            }
         }.bind(this));
     };
 
@@ -90,6 +95,38 @@ function Map(canvasElement, canvasContext) {
         canvasContext.lineWidth = 2;
         canvasContext.strokeStyle = jump.info.isActive ? '#ffd1e4' : '#00d1e4';
         canvasContext.stroke();
+    };
+
+    this.showPositionInfo = function(e) {
+        this.jumps.forEach(function(jump) {
+            if (jump.isInRange(e.x, e.y)) {
+                jump.info.isActive = true;
+            } else {
+                jump.info.isActive = false;
+            }
+        });
+
+        this.draw();
+    };
+
+    this.showPaths = function(activeJump) {
+        this.jumps.forEach(function(jump) {
+            if (jump.isInRangeForPath(activeJump.info.x, activeJump.info.y)) {
+                this.addPath(activeJump, jump);
+            }
+        }.bind(this));
+    };
+
+    this.addPath = function(fromJump, toJump) {
+        canvasContext.beginPath();
+        canvasContext.lineWidth = 1;
+        canvasContext.setLineDash([10, 2]);
+        canvasContext.strokeStyle = '#22ff66';
+        canvasContext.moveTo(fromJump.info.x, fromJump.info.y);
+        canvasContext.lineTo(toJump.info.x, toJump.info.y);
+        canvasContext.stroke();
+
+        canvasContext.setLineDash([]);
     };
 }
 

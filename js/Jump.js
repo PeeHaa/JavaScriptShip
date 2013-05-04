@@ -4,6 +4,7 @@ function Jump(x, y) {
         y: y,
         environment: [],
         ships: [],
+        hasPlayer: false,
         isActive: false
     };
 
