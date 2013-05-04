@@ -1,5 +1,6 @@
 function Map(canvasElement, canvasContext) {
     this.sector = 1;
+    this.position = null;
     this.jumps = [];
 
     this.settings = {
@@ -58,6 +59,8 @@ function Map(canvasElement, canvasContext) {
         startingJump.info.events = [];
         startingJump.info.ships = [];
         startingJump.info.hasPlayer = true;
+
+        this.position = startingJump;
     };
 
     this.addBackground = function() {
@@ -165,6 +168,37 @@ function Map(canvasElement, canvasContext) {
         canvasContext.stroke();
 
         canvasContext.setLineDash([]);
+    };
+
+    this.isActiveJumpValid = function() {
+        for (var i = 0, l = this.jumps.length; i < l; i++) {
+            if (!this.jumps[i].info.isActive) {
+                continue;
+            }
+
+            return this.position.isInRangeForPath(this.jumps[i].info.x, this.jumps[i].info.y);
+        }
+
+        return false;
+    };
+
+    this.moveToActiveJump = function() {
+        for (var i = 0, l = this.jumps.length; i < l; i++) {
+            var jump = this.jumps[i];
+
+            if (jump.info.hasPlayer) {
+                jump.info.visited = true;
+            }
+
+            jump.info.hasPlayer = false;
+
+            if (this.jumps[i].info.isActive) {
+                jump.info.hasPlayer = true;
+                this.position = jump;
+            }
+        }
+
+        this.draw();
     };
 }
 

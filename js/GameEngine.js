@@ -5,6 +5,7 @@ function GameEngine(playfield) {
 
     this.currentGame = {
         sector: 1,
+        turns: 0,
         view: 'map'
     };
 
@@ -25,4 +26,13 @@ function GameEngine(playfield) {
             this.map.showPositionInfo(e);
         }
     };
+
+    playfield.addEventListener('click', function(e) {
+        if (this.currentGame.view === 'map') {
+            if (this.map.isActiveJumpValid()) {
+                this.map.moveToActiveJump();
+                this.turns++;
+            }
+        }
+    }.bind(this));
 }
