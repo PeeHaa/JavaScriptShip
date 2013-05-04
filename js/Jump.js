@@ -6,7 +6,8 @@ function Jump(x, y) {
         events: [],
         ships: [],
         hasPlayer: false,
-        isActive: false
+        isActive: false,
+        visited: false
     };
 
     this.randomItemGenerator = new RandomItemGenerator();
