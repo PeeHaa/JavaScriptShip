@@ -1,6 +1,7 @@
 function GameEngine(playfield) {
     var canvasContext = playfield.getContext('2d');
 
+    this.audioPlayer = new AudioPlayer().play();
     this.map = {};
 
     this.currentGame = {
