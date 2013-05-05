@@ -112,7 +112,7 @@ function Map(canvasElement, canvasContext) {
     this.addHeader = function(sector) {
         canvasContext.fillStyle = '#ffffff';
         canvasContext.font = 'bold 16px Verdana';
-        canvasContext.fillText('JShip v0.1: Sector ' + this.sector, 10, 25);
+        canvasContext.fillText('JShip v0.2: Sector ' + this.sector, 10, 25);
     };
 
     this.generateJumps = function() {
