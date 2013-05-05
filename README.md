@@ -6,16 +6,16 @@ JavaScript FTL clone
 Status
 -
 
-I'm currently just playing with creating the map part. The goal it to have a working clone at some point.
+I'm currently implementing the battles. The goal it to have a working clone at some point.
 
-The map displays:
+Currently implemented features:
 
 - connected nodes
 - exit node (spinning node)
 - visited nodes (gray border)
 - player (black fill)
-
-You can jump to nodes in range.
+- basic menu (new game & toggle music)
+- jumpnig to nodes in range
 
 To check out the progress of the project see the [live demo][demo] (auto play sound warning).
 
@@ -37,6 +37,8 @@ And finally run the game:
         gameEngine.newGame();
     }());
 
+If you want to include the music download [the theme][theme] and add it to your document root.
+
 Contributing / hacking
 -
 
@@ -49,4 +51,5 @@ I was talking to [DrSiemer][drsiemer] about this when drinking a beer. And sure 
 
 [demo]:https://jship.pieterhordijk.com/
 [minified]:https://raw.github.com/PeeHaa/JavaScriptShip/master/js/js-javascriptship.min.js
+[theme]:https://github.com/PeeHaa/JavaScriptShip/blob/master/JShipTheme%203.ogg?raw=true
 [drsiemer]:https://github.com/DrSiemer
