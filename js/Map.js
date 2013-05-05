@@ -6,6 +6,8 @@ function Map(canvasElement, canvasContext) {
     // used to move the border of the exit jump
     this.exitJumpDrawOffset = 0;
 
+    this.drawEnabled = true;
+
     this.settings = {
         width: canvasElement.width,
         height: canvasElement.height,
@@ -242,10 +244,20 @@ function Map(canvasElement, canvasContext) {
 
     this.exitSpinner = function() {
         setTimeout(function() {
-            this.exitJumpDrawOffset++;
-            this.draw();
+            if (this.drawEnabled) {
+                this.exitJumpDrawOffset++;
+                this.draw();
+            }
             this.exitSpinner();
         }.bind(this), 50);
+    };
+
+    this.pause = function() {
+        this.drawEnabled = false;
+    };
+
+    this.resume = function() {
+        this.drawEnabled = true;
     };
 }
 
