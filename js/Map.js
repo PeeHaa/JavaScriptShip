@@ -259,6 +259,14 @@ function Map(canvasElement, canvasContext) {
     this.resume = function() {
         this.drawEnabled = true;
     };
+
+    this.getCurrentJump = function() {
+        for (var i = 0, l = this.jumps.length; i < l; i++) {
+            if (this.jumps[i].info.hasPlayer) {
+                return this.jumps[i];
+            }
+        }
+    };
 }
 
 Map.MINIMUM_DISTANCE_BETWEEN_JUMPS = 30;
