@@ -1,4 +1,4 @@
-function Menu(canvasContext, settings, audioPlayer) {
+function Menu(canvasContext, settings, gameEngine, audioPlayer) {
     this.menuItems = {
         newGame: {
             name: 'New game',
@@ -6,15 +6,9 @@ function Menu(canvasContext, settings, audioPlayer) {
             active: false,
             type: 'button',
             click: function() {
-            }
-        },
-        restartGame: {
-            name: 'Restart',
-            enabled: true,
-            active: false,
-            type: 'button',
-            click: function() {
-            }
+                this.hideMenu();
+                gameEngine.newGame();
+            }.bind(this)
         },
         music: {
             name: 'Music: {state}',

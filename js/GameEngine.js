@@ -3,7 +3,7 @@ function GameEngine(playfield) {
 
     this.settings = new Settings().initialize();
     this.audioPlayer = new AudioPlayer(this.settings).play();
-    this.menu = new Menu(canvasContext, this.settings, this.audioPlayer);
+    this.menu = new Menu(canvasContext, this.settings, this, this.audioPlayer);
     this.map = {};
 
     this.currentGame = {
