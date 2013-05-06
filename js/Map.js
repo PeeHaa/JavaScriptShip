@@ -100,7 +100,7 @@ function Map(canvasElement, canvasContext) {
     };
 
     this.addBackground = function() {
-        var linearGradient = canvasContext.createLinearGradient(0,0,0,150);
+        var linearGradient = canvasContext.createLinearGradient(0,0,0,this.settings.height);
 
         linearGradient.addColorStop(0, '#203060');
         linearGradient.addColorStop(1, '#0F153C');
